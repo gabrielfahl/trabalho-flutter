@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:myapp/provider/carrinho_provider.dart';
+import 'package:myapp/provider/carrinho_provider.dart'; // Verifique o caminho para carrinho_provider
 
 class CarrinhoTab extends StatelessWidget {
   const CarrinhoTab({super.key});
@@ -10,6 +10,33 @@ class CarrinhoTab extends StatelessWidget {
     final carrinhoProvider = Provider.of<CarrinhoProvider>(context);
     final itensCarrinho = carrinhoProvider.itensCarrinho;
 
+    const TextStyle estiloTextoPreto = TextStyle(color: Colors.black);
+    final TextStyle estiloTituloPreto =
+        Theme.of(context).textTheme.titleLarge?.copyWith(
+                  color: Colors.black,
+                  fontSize: 22, // Mantendo o fontSize do original
+                ) ??
+            const TextStyle(color: Colors.black, fontSize: 22, fontWeight: FontWeight.bold);
+
+    final TextStyle estiloCorpoTextoPreto =
+        Theme.of(context).textTheme.bodyLarge?.copyWith(
+                  color: Colors.black,
+                ) ??
+            estiloTextoPreto;
+            
+    final TextStyle estiloNomeItemPreto =
+        Theme.of(context).textTheme.headlineSmall?.copyWith(
+                  color: Colors.black,
+                ) ??
+            const TextStyle(color: Colors.black, fontSize: 18, fontWeight: FontWeight.bold);
+            
+    final TextStyle estiloPrecoItemPreto =
+        Theme.of(context).textTheme.bodyMedium?.copyWith(
+                  color: Colors.black,
+                ) ??
+            estiloTextoPreto;
+
+
     return Column(
       children: <Widget>[
         Expanded(
@@ -17,7 +44,7 @@ class CarrinhoTab extends StatelessWidget {
               ? Center(
                   child: Text(
                     'Seu carrinho está vazio! 🎃',
-                    style: Theme.of(context).textTheme.bodyLarge,
+                    style: estiloCorpoTextoPreto,
                   ),
                 )
               : ListView.builder(
@@ -28,11 +55,17 @@ class CarrinhoTab extends StatelessWidget {
                     return Card(
                       margin: const EdgeInsets.symmetric(vertical: 8.0),
                       child: ListTile(
-                        leading: Text(item.emoji, style: const TextStyle(fontSize: 24)),
-                        title: Text(item.nome, style: Theme.of(context).textTheme.headlineSmall?.copyWith(color: Colors.white)),
+                        leading: Text(
+                          item.emoji,
+                          style: const TextStyle(fontSize: 24, color: Colors.black), // ALTERADO
+                        ),
+                        title: Text(
+                          item.nome,
+                          style: estiloNomeItemPreto, // ALTERADO
+                        ),
                         trailing: Text(
                           'R\$ ${item.preco.toStringAsFixed(2)}',
-                          style: Theme.of(context).textTheme.bodyMedium?.copyWith(color: Colors.greenAccent),
+                          style: estiloPrecoItemPreto, // ALTERADO
                         ),
                       ),
                     );
@@ -46,7 +79,7 @@ class CarrinhoTab extends StatelessWidget {
               children: [
                 Text(
                   'Total: R\$ ${carrinhoProvider.totalCompra.toStringAsFixed(2)}',
-                  style: Theme.of(context).textTheme.titleLarge?.copyWith(fontSize: 22),
+                  style: estiloTituloPreto,
                 ),
                 const SizedBox(height: 20),
                 ElevatedButton(
@@ -54,13 +87,13 @@ class CarrinhoTab extends StatelessWidget {
                     backgroundColor: Colors.green,
                     foregroundColor: Colors.white,
                     padding: const EdgeInsets.symmetric(horizontal: 50, vertical: 15),
-                    textStyle: const TextStyle(fontSize: 18)
+                    textStyle: const TextStyle(fontSize: 18),
                   ),
                   onPressed: () {
                     carrinhoProvider.limparCarrinho();
                     ScaffoldMessenger.of(context).showSnackBar(
                       const SnackBar(
-                        content: Text('Compra realizada com sucesso!'),
+                        content: Text('Compra realizada com sucesso!'), 
                         duration: Duration(seconds: 3),
                         backgroundColor: Colors.lightGreen,
                       ),
@@ -71,7 +104,7 @@ class CarrinhoTab extends StatelessWidget {
               ],
             ),
           ),
-      ],
+    ],
     );
   }
 }

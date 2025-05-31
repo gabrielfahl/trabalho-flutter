@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
-import 'package:myapp/provider/produto_provider.dart'; // Verifique se o caminho está correto para 'provider'
-import 'package:myapp/provider/carrinho_provider.dart'; // Verifique se o caminho está correto para 'provider'
-import 'package:myapp/screens/home_screen.dart';
+import 'package:myapp/provider/produto_provider.dart';
+import 'package:myapp/provider/carrinho_provider.dart';
+import 'package:myapp/routes/route_generator.dart';
+import 'package:myapp/routes.dart';
 
 void main() {
   runApp(const MyApp());
@@ -25,7 +26,8 @@ class MyApp extends StatelessWidget {
           scaffoldBackgroundColor: Colors.white,
           cardColor: Colors.white,
         ),
-        home: const HomeScreen(),
+        initialRoute: Routes.home,
+        onGenerateRoute: RouteGenerator.generateRoute,
         debugShowCheckedModeBanner: false,
       ),
     );

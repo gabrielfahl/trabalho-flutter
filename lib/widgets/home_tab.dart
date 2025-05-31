@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:myapp/provider/produto_provider.dart';
-import 'package:myapp/screens/detalhes_produto_screen.dart';
+import 'package:myapp/routes.dart';
 
 class HomeTab extends StatelessWidget {
   const HomeTab({super.key});
@@ -21,15 +21,11 @@ class HomeTab extends StatelessWidget {
       itemBuilder: (ctx, index) {
         final produto = produtos[index];
         return Card(
-
           margin: const EdgeInsets.symmetric(vertical: 8.0),
           child: ListTile(
             leading: Text(
               produto.emoji,
-              style: const TextStyle(
-                fontSize: 30,
-                color: Colors.black,
-              ),
+              style: const TextStyle(fontSize: 30, color: Colors.black),
             ),
             title: Text(
               produto.nome,
@@ -40,10 +36,10 @@ class HomeTab extends StatelessWidget {
               ),
             ),
             onTap: () {
-              Navigator.of(context).push(
-                MaterialPageRoute(
-                  builder: (context) => DetalhesProdutoScreen(produto: produto),
-                ),
+              Navigator.pushNamed(
+                context,
+                Routes.detalhesProduto,
+                arguments: produto,
               );
             },
           ),

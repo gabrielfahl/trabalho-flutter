@@ -12,7 +12,6 @@ class ProdutoProvider with ChangeNotifier {
   }
 
   void _carregarProdutos() {
-    // JSON fornecido diretamente como string
     const String jsonData = '''
     {
       "produtos_halloween": [
@@ -128,6 +127,6 @@ class ProdutoProvider with ChangeNotifier {
     final Map<String, dynamic> data = json.decode(jsonData);
     final List<dynamic> produtosData = data['produtos_halloween'];
     _produtos = produtosData.map((item) => Produto.fromJson(item)).toList();
-    notifyListeners(); // Notifica os ouvintes sobre a mudança
+    notifyListeners();
   }
 }
